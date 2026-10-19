@@ -1,6 +1,6 @@
 # Alang Motor
 
-Aplikasi Android Flutter offline untuk kalkulasi CR/DCR mesin 4-tak dan camshaft balancing, berdasarkan formula pada workbook `CR DCR CAM BALANCING updated jan2024-1.xlsx`.
+Aplikasi Android Flutter offline untuk kalkulasi mesin dan motor berdasarkan formula workbook `CR DCR CAM BALANCING updated jan2024-1.xlsx` serta `speed-2-1.xlsx`.
 
 ## Modul
 - CR/DCR: bore, stroke asal, perubahan stroke, gasket, deck clearance, volume head, IVC, CC, CR, dan DCR.
@@ -16,7 +16,7 @@ Aplikasi Android Flutter offline untuk kalkulasi CR/DCR mesin 4-tak dan camshaft
 
 Catatan: aplikasi meniru formula workbook, termasuk formula DCR yang digunakan workbook; hasilnya bukan validasi teknis atau rekomendasi tuning mesin.
 
-## Build APK
+## Formula map — workbook speed-2-1.xlsx\n\nPemetaan setiap formula dan sel Excel ke hasil di aplikasi tersedia di [docs/speed-2-1-formula-map.md](docs/speed-2-1-formula-map.md). Formula helper, konstanta seperti 3.14159/3.14/PI(), serta rasio gear referensi ikut direplikasi. Input yang dikosongkan tetap kosong dan tidak dianggap sebagai 0.\n\n## Build APK
 GitHub Actions workflow `Build Android APK` akan membuat scaffold Android Flutter, menjalankan `flutter analyze`, `flutter test`, lalu membangun APK debug. Unduh APK dari artifact workflow setelah proses berhasil.
 
 ## Menjalankan lokal
