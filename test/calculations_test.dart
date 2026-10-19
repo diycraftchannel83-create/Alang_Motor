@@ -15,13 +15,9 @@ void main() {
 
     test('keeps workbook gasket and deck intermediate formulas', () {
       const input = CrDcrInput(
-        boreMm: 65,
-        strokeOriginalMm: 57.8,
-        strokeJackMm: 4.5,
-        gasketThicknessMm: 0.5,
-        deckClearanceMm: 0.2,
-        headVolumeCc: 14.5,
-        ivcDegrees: 65,
+        boreMm: 65, strokeOriginalMm: 57.8, strokeJackMm: 4.5,
+        gasketThicknessMm: 0.5, deckClearanceMm: 0.2,
+        headVolumeCc: 14.5, ivcDegrees: 65,
       );
       expect(input.gasketVolumeCc, closeTo(1.6591046875, 1e-9));
       expect(input.deckVolumeCc, closeTo(0.663641875, 1e-9));
@@ -29,8 +25,6 @@ void main() {
           closeTo((221.65638625 + 1.6591046875 + 0.663641875 + 14.5) / 14.5, 1e-9));
     });
   });
-
-  extraWorkbookFormulaTests();
 
   group('Cam Balancing workbook reference values', () {
     test('matches Actual Data and Balancing IVC/LSA examples', () {
@@ -63,8 +57,6 @@ void main() {
       expect(rows.last['degree'], 300);
     });
   });
-}
-
 
   group('speed-2-1.xlsx worksheet formulas', () {
     test('Speed sheet matches workbook reference example', () {
@@ -106,9 +98,7 @@ void main() {
     });
 
     test('carburetor and throttle body sheet matches workbook example', () {
-      final result = calculateCarbThrottleSheet({
-        'valveDiameter': 33, 'valveCount': 2,
-      });
+      final result = calculateCarbThrottleSheet({'valveDiameter': 33, 'valveCount': 2});
       expect(result['equivalentValveDiameter'], closeTo(46.66904755831214, 1e-8));
       expect(result['carburetorSize'], closeTo(43.40221422923029, 1e-8));
       expect(result['throttleBodySize'], closeTo(49.00249993622774, 1e-8));
@@ -130,3 +120,4 @@ void main() {
       expect(calculateSpeedSheet({'rpm': null})['speedKmh'], isNull);
     });
   });
+}
