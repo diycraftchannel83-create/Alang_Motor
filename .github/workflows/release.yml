@@ -27,9 +27,11 @@ jobs:
       - name: Determine release version
         id: meta
         shell: bash
+        env:
+          VERSION_INPUT: ${{ inputs.version }}
         run: |
           if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
-            VERSION="${{ inputs.version }}"
+            VERSION="$VERSION_INPUT"
             if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
               echo "Versi tidak valid: $VERSION. Gunakan format seperti 1.0.0 atau 1.0.0-rc.1." >&2
               exit 1
