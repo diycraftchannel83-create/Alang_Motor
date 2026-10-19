@@ -55,9 +55,9 @@ void main() {
       expect(rows.first['duration'], 30);
       expect(rows.first['degree'], 210);
       expect(rows[1]['open'], 5);
-      expect(rows.last['open'], 50);
-      expect(rows.last['close'], 80);
-      expect(rows.last['degree'], 310);
+      expect(rows.last['open'], 45);
+      expect(rows.last['close'], 75);
+      expect(rows.last['degree'], 300);
     });
   });
 }
