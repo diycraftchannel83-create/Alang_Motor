@@ -65,9 +65,9 @@ SheetValues calculatePowerTorqueSheet(SheetValues x) {
   final piston = _v(x, 'piston');
   final torqueFtLb = torqueNm == null ? null : torqueNm * 0.7376;
   final torqueRatio = _div(torqueFtLb, hp);
-  final calculatedHp = (torqueKg == null || rpmHp == null)
+  final calculatedHp = (torqueNm == null || rpmHp == null)
       ? null
-      : (torqueKg * rpmHp) / 5252;
+      : (torqueNm * rpmHp) / 5252;
   final calculatedTorque = (torqueKg == null || rpmTorque == null)
       ? null
       : (torqueKg / 1000) * 9.81 * (rpmTorque / 60);
