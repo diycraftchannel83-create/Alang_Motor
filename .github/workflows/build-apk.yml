@@ -27,8 +27,11 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Generate Android project scaffolding
-        run: flutter create --platforms=android --project-name alang_motor --org com.alangmotor --overwrite .
+      - name: Generate Android platform files without overwriting app source
+        run: |
+          mkdir -p /tmp/alang_scaffold
+          flutter create --platforms=android --project-name alang_motor --org com.alangmotor /tmp/alang_scaffold
+          cp -R /tmp/alang_scaffold/android ./android
 
       - name: Resolve dependencies
         run: flutter pub get
