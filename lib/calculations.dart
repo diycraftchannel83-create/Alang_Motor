@@ -28,19 +28,19 @@ class CrDcrInput {
 
   // Excel: HQ3=B6^2; HR3=3.1415/4; HT3=HS3*HR3*HQ3; HS5=HT3/1000
   double get sweptVolumeCc =>
-      (3.1415 / 4) * math.pow(boreMm, 2) * strokeMm / 1000;
+      ((3.1415 / 4) * math.pow(boreMm, 2) * strokeMm / 1000).toDouble();
 
   // Excel gasket/deck intermediate cells use bore^2 * (pi/4) * thickness / 1000.
   double get gasketVolumeCc =>
-      gasketThicknessMm * (3.1415 / 4) * math.pow(boreMm, 2) / 1000;
+      (gasketThicknessMm * (3.1415 / 4) * math.pow(boreMm, 2) / 1000).toDouble();
 
   double get deckVolumeCc =>
-      deckClearanceMm * (3.1415 / 4) * math.pow(boreMm, 2) / 1000;
+      (deckClearanceMm * (3.1415 / 4) * math.pow(boreMm, 2) / 1000).toDouble();
 
   // Workbook B24 = (3.1415 * (bore/2)^2 * extra gasket thickness) * 0.001.
   // This is displayed as a separate result and is not added to the workbook CR cell.
   double get extraGasketVolumeCc =>
-      3.1415 * math.pow(boreMm / 2, 2) * extraGasketThicknessMm * 0.001;
+      (3.1415 * math.pow(boreMm / 2, 2) * extraGasketThicknessMm * 0.001).toDouble();
 
   // Excel HS26=(HS5+HS15+HT20+B15)/B15
   double get compressionRatio =>
@@ -49,7 +49,7 @@ class CrDcrInput {
 
   // Excel HS51=(3.1415 * bore^2 * stroke)/4000
   double get engineCc =>
-      (3.1415 * math.pow(boreMm, 2) * strokeMm) / 4000;
+      ((3.1415 * math.pow(boreMm, 2) * strokeMm) / 4000).toDouble();
 
   // Excel HR57=HS51/180; HS57=180-IVC; HT57=HS57*HR57
   double get dynamicSweptVolumeCc => (180 - ivcDegrees) * (engineCc / 180);
