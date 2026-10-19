@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'calculations.dart';
+import 'other_sheets.dart';
 
 void main() => runApp(const AlangMotorApp());
 
@@ -27,41 +28,45 @@ class AlangMotorApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
 
-class _HomePageState extends State<HomePage> {
-  int tab = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Row(children: [
-          Icon(Icons.two_wheeler),
-          SizedBox(width: 10),
-          Text('Alang Motor', style: TextStyle(fontWeight: FontWeight.w800)),
-        ]),
-      ),
-      body: IndexedStack(
-        index: tab,
-        children: const [CrDcrPage(), CamPage()],
-      ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: tab,
-        onDestinationSelected: (value) => setState(() => tab = value),
-        destinations: const [
-          NavigationDestination(
-              icon: Icon(Icons.speed_outlined),
-              selectedIcon: Icon(Icons.speed),
-              label: 'CR / DCR'),
-          NavigationDestination(
-              icon: Icon(Icons.settings_input_component),
-              selectedIcon: Icon(Icons.settings),
-              label: 'Cam Balancing'),
-        ],
+    const tabs = <Tab>[
+      Tab(text: 'CR / DCR'),
+      Tab(text: 'Cam'),
+      Tab(text: 'Speed'),
+      Tab(text: 'Power / Torque'),
+      Tab(text: 'RPM Valve'),
+      Tab(text: 'Karb / TB'),
+      Tab(text: 'Porting'),
+    ];
+    return DefaultTabController(
+      length: tabs.length,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Row(children: [
+            Icon(Icons.two_wheeler),
+            SizedBox(width: 10),
+            Text('Alang Motor', style: TextStyle(fontWeight: FontWeight.w800)),
+          ]),
+          bottom: const TabBar(
+            isScrollable: true,
+            tabs: tabs,
+          ),
+        ),
+        body: const TabBarView(
+          children: [
+            CrDcrPage(),
+            CamPage(),
+            SpeedSheetPage(),
+            PowerTorquePage(),
+            RpmSheetPage(),
+            CarbThrottlePage(),
+            PortSheetPage(),
+          ],
+        ),
       ),
     );
   }
