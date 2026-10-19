@@ -84,10 +84,7 @@ class _CrDcrPageState extends State<CrDcrPage> {
     'Bore (mm)': TextEditingController(text: '65'),
     'Stroke asal (mm)': TextEditingController(text: '57.8'),
     'Stroke jack (mm)': TextEditingController(text: '4.5'),
-    'Tebal gasket (mm)': TextEditingController(text: '0'),
-    'Jarak TDC ke deck (mm)': TextEditingController(text: '0'),
     'Volume head (cc)': TextEditingController(text: '14.5'),
-    'Gasket tambahan (mm)': TextEditingController(text: '0'),
     'IVC (derajat)': TextEditingController(text: '65'),
   };
 
@@ -108,10 +105,10 @@ class _CrDcrPageState extends State<CrDcrPage> {
       boreMm: number('Bore (mm)'),
       strokeOriginalMm: number('Stroke asal (mm)'),
       strokeJackMm: number('Stroke jack (mm)'),
-      gasketThicknessMm: number('Tebal gasket (mm)'),
-      deckClearanceMm: number('Jarak TDC ke deck (mm)'),
+      gasketThicknessMm: 0,
+      deckClearanceMm: 0,
       headVolumeCc: number('Volume head (cc)'),
-      extraGasketThicknessMm: number('Gasket tambahan (mm)'),
+      extraGasketThicknessMm: 0,
       ivcDegrees: number('IVC (derajat)'),
     );
     final r = input.results;
@@ -153,10 +150,7 @@ class _CrDcrPageState extends State<CrDcrPage> {
                                     'Bore (mm)': '65',
                                     'Stroke asal (mm)': '57.8',
                                     'Stroke jack (mm)': '4.5',
-                                    'Tebal gasket (mm)': '0',
-                                    'Jarak TDC ke deck (mm)': '0',
                                     'Volume head (cc)': '14.5',
-                                    'Gasket tambahan (mm)': '0',
                                     'IVC (derajat)': '65',
                                   };
                                   entry.value.text = defaults[entry.key]!;
@@ -169,9 +163,7 @@ class _CrDcrPageState extends State<CrDcrPage> {
                           validator: (v) {
                             final n = double.tryParse((v ?? '').replaceAll(',', '.'));
                             if (n == null || !n.isFinite) return 'Masukkan angka valid';
-                            if (entry.key != 'Jarak TDC ke deck (mm)' &&
-                                entry.key != 'Tebal gasket (mm)' &&
-                                entry.key != 'Gasket tambahan (mm)' && n <= 0) {
+                            if (n <= 0) {
                               return 'Nilai harus lebih besar dari 0';
                             }
                             if (n < 0) return 'Nilai tidak boleh negatif';
