@@ -15,7 +15,7 @@ This file documents the formula-to-Dart transcription for each worksheet. Consta
 | W18 | `=((E16*2)*25.4)+W17` | `tireDiameterMm` |
 | W19 | `=(W18/2)*3.14159*2` | `tireCircumferenceMm` |
 | W22 | `=(W13/60)*W19` | `tireRpmMmSec` |
-| W24 | `=W22/1000000*3600` | `speedKmh` |
+| W24 | `=W22/1000000*3600` | `speedKmh` |\n| E19 | `=W24` | same displayed speed result |
 
 ## TvsHP
 
@@ -43,7 +43,7 @@ This file documents the formula-to-Dart transcription for each worksheet. Consta
 | C7 | `=I7+(E7*2)` | `strokeTotal` |
 | Z18 | `=(Z15*Z15)*(2286000)` | RPM numerator |
 | Z19 | `=(C6*C6)*C7` | RPM denominator |
-| Z21 | `=Z18/Z19` | `rpm` / C8 |
+| Z21 | `=Z18/Z19` | helper result for C8 |\n| C8 | `=Z21` | `rpm` |
 
 ## karbTB
 
