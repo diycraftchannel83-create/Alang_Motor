@@ -185,7 +185,7 @@ class PowerTorquePage extends StatelessWidget {
         title: 'Power & Torque',
         subtitle: 'HP, torque ratio, conversion ft.lb, torque dan balance factor',
         inputs: {
-          'hp': '29.27', 'torqueNm': '21.46', 'rpmHp': '7000',
+          'hp': '29.27', 'torqueNm': '21.46', 'torqueForHp': '21.46', 'rpmHp': '7000',
           'torqueKg': '22', 'rpmTorque': '8000', 'rod': '55',
           'weight': '118', 'piston': '280',
         },
