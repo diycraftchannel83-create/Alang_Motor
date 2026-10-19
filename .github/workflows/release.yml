@@ -63,14 +63,24 @@ jobs:
           flutter create --platforms=android --project-name alang_motor --org com.alangmotor /tmp/alang_scaffold
           cp -R /tmp/alang_scaffold/android ./android
 
+      - name: Generate launcher icons from SVG artwork
+        run: |
+          python -m pip install --user cairosvg
+          python - <<'PY'
+          import cairosvg
+          cairosvg.svg2png(url="assets/alang_motor_icon.svg", write_to="assets/alang_motor_icon.png", output_width=1024, output_height=1024)
+          PY
+
       - name: Set app version
         shell: bash
         run: |
           sed -i "s/^version:.*/version: ${{ steps.meta.outputs.version }}+${GITHUB_RUN_NUMBER}/" pubspec.yaml
           cat pubspec.yaml | grep '^version:'
 
-      - name: Resolve dependencies
-        run: flutter pub get
+      - name: Resolve dependencies and generate Android launcher icons
+        run: |
+          flutter pub get
+          dart run flutter_launcher_icons
 
       - name: Analyze
         run: flutter analyze
