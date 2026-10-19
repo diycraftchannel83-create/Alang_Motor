@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#132d4b"/><stop offset="1" stop-color="#020916"/></linearGradient>
+ <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#36e6ff"/><stop offset=".55" stop-color="#087cff"/><stop offset="1" stop-color="#0642a6"/></linearGradient>
+ <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".42" stop-color="#b9c7d6"/><stop offset=".7" stop-color="#f5f8fc"/><stop offset="1" stop-color="#75879d"/></linearGradient>
+ <linearGradient id="blue" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#20dcff"/><stop offset="1" stop-color="#0564e8"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="10"/></filter>
+</defs>
+<rect x="48" y="48" width="928" height="928" rx="190" fill="#001026" opacity=".65" filter="url(#shadow)"/>
+<rect x="44" y="44" width="936" height="936" rx="184" fill="url(#bg)" stroke="url(#edge)" stroke-width="22"/>
+<path d="M174 400 L256 355 M151 458 L254 410 M160 518 L270 466" stroke="#04baf8" stroke-width="18" stroke-linecap="round"/>
+<!-- speedometer -->
+<path d="M337 451 A238 238 0 0 1 810 451" fill="none" stroke="#071323" stroke-width="58" stroke-linecap="round"/>
+<path d="M337 451 A238 238 0 0 1 810 451" fill="none" stroke="url(#edge)" stroke-width="35" stroke-linecap="round"/>
+<path d="M394 292 L418 316 M485 231 L495 265 M588 216 L588 254 M689 250 L668 281 M766 324 L733 345" stroke="#d8f5ff" stroke-width="13" stroke-linecap="round"/>
+<path d="M587 435 L778 286 L635 475 Z" fill="url(#blue)" stroke="#04182e" stroke-width="12"/>
+<circle cx="588" cy="438" r="34" fill="url(#metal)" stroke="#051426" stroke-width="12"/>
+<!-- gear -->
+<path d="M414 351 L451 351 L465 379 L489 393 L518 382 L545 406 L533 436 L541 463 L568 480 L562 515 L531 524 L514 547 L518 578 L489 597 L463 577 L434 582 L416 608 L382 598 L377 567 L355 548 L324 551 L309 520 L328 496 L325 466 L300 447 L312 415 L343 411 L361 388 L358 357 L388 343 Z" fill="url(#metal)" stroke="#07182b" stroke-width="13"/>
+<circle cx="416" cy="470" r="93" fill="#08172b" stroke="#71869b" stroke-width="15"/>
+<circle cx="416" cy="470" r="54" fill="url(#bg)" stroke="url(#edge)" stroke-width="13"/>
+<!-- piston -->
+<path d="M330 224 Q330 205 350 205 L483 205 Q501 205 506 225 L520 308 L497 342 L353 342 L331 309 Z" fill="url(#metal)" stroke="#06172b" stroke-width="13"/>
+<path d="M337 238 L503 238 M343 260 L508 260 M348 282 L512 282" stroke="#18283b" stroke-width="12"/>
+<circle cx="425" cy="303" r="22" fill="#07172a" stroke="#e8f1fa" stroke-width="9"/>
+<path d="M390 340 L460 340 L471 395 L449 428 L403 428 L380 394 Z" fill="url(#metal)" stroke="#06172b" stroke-width="12"/>
+<!-- calculator -->
+<g transform="rotate(9 680 590)">
+ <rect x="570" y="478" width="250" height="264" rx="30" fill="url(#metal)" stroke="#06172b" stroke-width="15"/>
+ <rect x="594" y="501" width="202" height="53" rx="10" fill="#0b3155" stroke="#168df3" stroke-width="7"/>
+ <g fill="#10243b" stroke="#dce9f7" stroke-width="5">
+ <rect x="593" y="572" width="86" height="57" rx="12"/><rect x="692" y="572" width="86" height="57" rx="12"/>
+ <rect x="593" y="642" width="86" height="57" rx="12"/><rect x="692" y="642" width="86" height="57" rx="12" fill="#0878ed"/>
+ </g>
+ <g fill="#f7fbff" font-family="Arial,sans-serif" font-weight="bold" font-size="46" text-anchor="middle">
+ <text x="636" y="614">+</text><text x="735" y="614">−</text><text x="636" y="686">×</text><text x="735" y="686">=</text>
+ </g>
+</g>
+<!-- wordmark -->
+<path d="M174 780 L247 680 L303 680 L346 765 L389 680 L450 680 L386 815 L324 815 L284 739 L230 815 L158 815 Z" fill="url(#metal)"/>
+<text x="498" y="782" font-family="Arial,sans-serif" font-size="100" font-weight="900" font-style="italic" fill="#f6fbff" letter-spacing="-5">LANG</text>
+<text x="512" y="871" font-family="Arial,sans-serif" font-size="76" font-weight="900" font-style="italic" fill="url(#blue)" text-anchor="middle" letter-spacing="5">MOTOR</text>
+</svg>
