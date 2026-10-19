@@ -180,7 +180,7 @@ CamBalancingResult calculateCamBalancing({
 
 /// Workbook's Cam Pairing table: intake open starts at 0 and close at 30;
 /// each subsequent row increments both by 5 degrees.
-List<Map<String, double>> camPairingRows({int count = 11}) => List.generate(
+List<Map<String, double>> camPairingRows({int count = 10}) => List.generate(
       count,
       (i) {
         final open = i * 5.0;
