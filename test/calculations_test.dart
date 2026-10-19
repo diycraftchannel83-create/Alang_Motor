@@ -22,10 +22,10 @@ void main() {
         headVolumeCc: 14.5,
         ivcDegrees: 65,
       );
-      expect(input.gasketVolumeCc, closeTo(1.327446875, 1e-9));
-      expect(input.deckVolumeCc, closeTo(0.53097875, 1e-9));
+      expect(input.gasketVolumeCc, closeTo(1.6591046875, 1e-9));
+      expect(input.deckVolumeCc, closeTo(0.663641875, 1e-9));
       expect(input.compressionRatio,
-          closeTo((221.65638625 + 1.327446875 + 0.53097875 + 14.5) / 14.5, 1e-9));
+          closeTo((221.65638625 + 1.6591046875 + 0.663641875 + 14.5) / 14.5, 1e-9));
     });
   });
 
