@@ -142,6 +142,8 @@ class _CrDcrPageState extends State<CrDcrPage> {
                           keyboardType: const TextInputType.numberWithOptions(
                               decimal: true, signed: false),
                           decoration: InputDecoration(
+                            filled: true,
+                            fillColor: const Color(0xFFE1F2FF),
                             labelText: entry.key,
                             suffixIcon: IconButton(
                               tooltip: 'Reset ke nilai contoh Excel',
