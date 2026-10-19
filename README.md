@@ -1,32 +1,51 @@
 # Alang Motor
 
-Aplikasi Android Flutter offline untuk kalkulasi mesin dan motor berdasarkan formula workbook `CR DCR CAM BALANCING updated jan2024-1.xlsx` serta `speed-2-1.xlsx`.
+Aplikasi Android Flutter offline untuk kalkulasi mesin dan motor berdasarkan formula workbook `CR DCR CAM BALANCING updated jan2024-1.xlsx` dan `speed-2-1.xlsx`.
 
-## Modul
-- CR/DCR: bore, stroke asal, perubahan stroke, gasket, deck clearance, volume head, IVC, CC, CR, dan DCR.
-- Cam Balancing: Actual Data, Balancing IVC, Balancing LSA, dan tabel Cam Pairing.
-- Pengujian unit untuk hasil contoh dari workbook.
+## Modul aplikasi
 
-## Formula workbook yang dipertahankan
-- Stroke: `(E8 * 2) + G8`
-- CC: `(3.1415 * bore^2 * stroke) / 4000`
-- CR: `(CC + volume_gasket + volume_deck + volume_head) / volume_head`, dengan volume gasket/deck mengikuti sel perantara workbook.
-- DCR: `((180 - IVC) * (CC / 180) + volume_head) / volume_head`
-- Cam durations, LSA, IVC balancing, LSA balancing mengikuti formula sheet `CAM BALANCING`.
+- **CR / DCR** — kapasitas mesin, compression ratio, dynamic compression ratio, volume gasket, dan deck clearance.
+- **Cam Balancing** — Actual Data, Balancing IVC, Balancing LSA, dan tabel Cam Pairing.
+- **Speed by RPM** — rasio primary, gear, sprocket, ukuran ban, RPM akhir, dan estimasi kecepatan.
+- **Power & Torque** — konversi torsi, torque ratio, HP, torsi, dan balance factor.
+- **RPM by Intake Valve** — luas valve, diameter ekuivalen, lift valve, stroke total, dan RPM.
+- **Karburator & Throttle Body** — diameter ekuivalen, estimasi ukuran karburator/TB, dan tabel rasio gear LC135 5S–6S.
+- **Porting** — diameter port, luas port, tinggi dan lebar port oval.
 
-Catatan: aplikasi meniru formula workbook, termasuk formula DCR yang digunakan workbook; hasilnya bukan validasi teknis atau rekomendasi tuning mesin.
+## Formula workbook
 
-## Formula map — workbook speed-2-1.xlsx\n\nPemetaan setiap formula dan sel Excel ke hasil di aplikasi tersedia di [docs/speed-2-1-formula-map.md](docs/speed-2-1-formula-map.md). Formula helper, konstanta seperti 3.14159/3.14/PI(), serta rasio gear referensi ikut direplikasi. Input yang dikosongkan tetap kosong dan tidak dianggap sebagai 0.\n\n## Build APK
-GitHub Actions workflow `Build Android APK` akan membuat scaffold Android Flutter, menjalankan `flutter analyze`, `flutter test`, lalu membangun APK debug. Unduh APK dari artifact workflow setelah proses berhasil.
+Pemetaan sel dan formula dari sheet `Speed`, `TvsHP`, `RPM`, `karbTB`, dan `Port` tersedia di [docs/speed-2-1-formula-map.md](docs/speed-2-1-formula-map.md). Konstanta workbook seperti `3.14159`, `3.14`, dan `PI()` dipertahankan sesuai formula sumber. Input yang dikosongkan tidak otomatis dianggap nol.
 
-## Menjalankan lokal
+Formula CR/DCR dan Cam Balancing juga ditranskripsikan dari workbook CR/DCR/Cam Balancing. Hasil merupakan alat bantu kalkulasi; verifikasi terhadap pengukuran aktual dan spesifikasi mesin.
+
+## Unduh versi rilis
+
+Buka halaman [GitHub Releases](https://github.com/diycraftchannel83-create/Alang_Motor/releases) untuk mengunduh:
+- **APK** — untuk instalasi langsung pada perangkat Android.
+- **AAB** — Android App Bundle untuk proses distribusi melalui Google Play Console.
+- **SHA256SUMS.txt** — checksum untuk memeriksa integritas unduhan.
+
+Setiap rilis mencantumkan ringkasan fitur, petunjuk file unduhan, catatan penggunaan, serta catatan perubahan otomatis dari commit sejak rilis sebelumnya.
+
+## Membuat rilis baru
+
+Workflow [Build and Publish Android Release](https://github.com/diycraftchannel83-create/Alang_Motor/actions/workflows/release.yml) membangun dan menguji aplikasi, lalu menerbitkan APK, AAB, dan checksum ke GitHub Releases.
+
+1. Buka tab **Actions** pada repository.
+2. Pilih **Build and Publish Android Release**.
+3. Klik **Run workflow**, lalu masukkan nomor versi tanpa awalan `v`, misalnya `1.0.0`.
+4. Jalankan workflow. Jika analisis, pengujian, dan build berhasil, rilis bertag `v1.0.0` akan dibuat beserta APK, AAB, dan release notes.
+5. Untuk versi berikutnya, gunakan nomor versi baru. Alternatifnya, push tag seperti `v1.0.1` untuk menjalankan workflow secara otomatis.
+
+## Build dan pengujian lokal
+
 Dengan Flutter SDK terpasang:
 ```bash
-flutter create --platforms=android --project-name alang_motor .
 flutter pub get
 flutter analyze
 flutter test
-flutter run
+flutter build apk --release
+flutter build appbundle --release
 ```
 
-Workbook sumber tidak didistribusikan ulang; implementasi mengacu pada formula yang dianalisis dari file pengguna.
+Workbook sumber tidak didistribusikan ulang; aplikasi mengimplementasikan formula yang dianalisis dari workbook pengguna.
