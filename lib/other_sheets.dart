@@ -78,6 +78,12 @@ class _FormulaSheetPageState extends State<FormulaSheetPage> {
             padding: const EdgeInsets.all(16),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const Text('INPUT WORKSHEET', style: TextStyle(fontWeight: FontWeight.w800)),
+              const SizedBox(height: 6),
+              const Row(children: [
+                Icon(Icons.edit, size: 16, color: Color(0xFF176B45)),
+                SizedBox(width: 6),
+                Expanded(child: Text('Biru = sel input yang dapat diedit', style: TextStyle(fontSize: 12, color: Color(0xFF176B45)))),
+              ]),
               const SizedBox(height: 12),
               for (final entry in controllers.entries)
                 Padding(
@@ -85,7 +91,12 @@ class _FormulaSheetPageState extends State<FormulaSheetPage> {
                   child: TextField(
                     controller: entry.value,
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                    decoration: InputDecoration(labelText: entry.key),
+                    decoration: InputDecoration(
+                      labelText: entry.key,
+                      filled: true,
+                      fillColor: const Color(0xFFE1F2FF),
+                      prefixIcon: const Icon(Icons.edit, size: 18, color: Color(0xFF176B45)),
+                    ),
                     onChanged: (_) => setState(() {}),
                   ),
                 ),
@@ -139,7 +150,7 @@ class _FormulaSheetPageState extends State<FormulaSheetPage> {
         const Padding(
           padding: EdgeInsets.all(8),
           child: Text(
-            'Formula ditranskripsikan dari sheet Excel. Nilai input yang dikosongkan tidak dianggap 0; hasil yang bergantung padanya ditampilkan sebagai —.',
+            'Penanda warna biru hanya diterapkan pada field yang didefinisikan sebagai input untuk sheet ini. Hasil formula ditampilkan terpisah dan tidak dapat diedit. Formula ditranskripsikan dari sheet Excel. Nilai input yang dikosongkan tidak dianggap 0; hasil yang bergantung padanya ditampilkan sebagai —.',
             style: TextStyle(color: Colors.black54, fontSize: 12),
           ),
         ),
