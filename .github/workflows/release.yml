@@ -1,0 +1,135 @@
+name: Build and Publish Android Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Versi rilis tanpa awalan v, contoh 1.0.0"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build APK, AAB, and publish release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine release version
+        id: meta
+        shell: bash
+        run: |
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            VERSION="${{ inputs.version }}"
+            if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
+              echo "Versi tidak valid: $VERSION. Gunakan format seperti 1.0.0 atau 1.0.0-rc.1." >&2
+              exit 1
+            fi
+            TAG_NAME="v$VERSION"
+          else
+            TAG_NAME="$GITHUB_REF_NAME"
+            VERSION="${TAG_NAME#v}"
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag_name=$TAG_NAME" >> "$GITHUB_OUTPUT"
+          echo "Release version: $VERSION ($TAG_NAME)"
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Generate Android platform files
+        run: |
+          mkdir -p /tmp/alang_scaffold
+          flutter create --platforms=android --project-name alang_motor --org com.alangmotor /tmp/alang_scaffold
+          cp -R /tmp/alang_scaffold/android ./android
+
+      - name: Set app version
+        shell: bash
+        run: |
+          sed -i "s/^version:.*/version: ${{ steps.meta.outputs.version }}+${GITHUB_RUN_NUMBER}/" pubspec.yaml
+          cat pubspec.yaml | grep '^version:'
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Test formula calculations
+        run: flutter test
+
+      - name: Build release APK
+        run: flutter build apk --release
+
+      - name: Build release Android App Bundle
+        run: flutter build appbundle --release
+
+      - name: Prepare release files
+        shell: bash
+        run: |
+          mkdir -p release-files
+          cp build/app/outputs/flutter-apk/app-release.apk "release-files/Alang-Motor-${{ steps.meta.outputs.version }}.apk"
+          cp build/app/outputs/bundle/release/app-release.aab "release-files/Alang-Motor-${{ steps.meta.outputs.version }}.aab"
+          sha256sum release-files/* > release-files/SHA256SUMS.txt
+          ls -lh release-files
+
+      - name: Upload APK and AAB as workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: alang-motor-release-${{ steps.meta.outputs.version }}
+          path: release-files/*
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag_name }}
+          target_commitish: ${{ github.sha }}
+          name: Alang Motor v${{ steps.meta.outputs.version }}
+          files: |
+            release-files/Alang-Motor-${{ steps.meta.outputs.version }}.apk
+            release-files/Alang-Motor-${{ steps.meta.outputs.version }}.aab
+            release-files/SHA256SUMS.txt
+          generate_release_notes: true
+          body: |
+            ## Alang Motor v${{ steps.meta.outputs.version }}
+
+            Aplikasi kalkulator teknik mesin dan motor berbasis formula workbook Excel.
+
+            ### Fitur
+            - **CR / DCR** — kapasitas mesin, compression ratio, dynamic compression ratio, volume gasket, dan deck clearance.
+            - **Cam Balancing** — Actual Data, IVC, LSA, dan tabel Cam Pairing.
+            - **Speed by RPM** — rasio transmisi dan sprocket, ukuran ban, RPM akhir, dan estimasi kecepatan.
+            - **Power & Torque** — konversi torsi, estimasi HP, torsi, dan balance factor.
+            - **RPM by Intake Valve** — diameter ekuivalen valve, valve lift, stroke total, dan estimasi RPM.
+            - **Karburator & Throttle Body** — estimasi diameter karburator/TB dan referensi rasio gear LC135.
+            - **Porting** — diameter dan luas port serta ukuran port oval.
+
+            ### File unduhan
+            - **APK** — untuk instalasi langsung pada perangkat Android.
+            - **AAB** — Android App Bundle untuk proses distribusi melalui Google Play Console.
+            - **SHA256SUMS.txt** — checksum untuk memeriksa integritas file unduhan.
+
+            ### Catatan
+            - Formula dan pengujian dijalankan melalui GitHub Actions sebelum publikasi.
+            - Hasil perhitungan merupakan alat bantu teknis; verifikasi dengan spesifikasi mesin dan pengukuran aktual.
+            - Catatan perubahan otomatis dari commit sejak rilis sebelumnya ditambahkan di bawah bagian ini.
